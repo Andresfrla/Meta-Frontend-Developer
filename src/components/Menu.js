@@ -1,6 +1,29 @@
 import recipes from '../recipes'
+import Swal from 'sweetalert2'
 
 export default function Menu (){
+
+    const handleOrder = (id) => {
+        console.log("id ", id)
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, order it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "Ordered!",
+                text: "Your order has been processing",
+                icon: "success"
+              });
+            }
+          });
+    }
+
     return (
         <div className="menu-container">
             <div>
@@ -18,7 +41,7 @@ export default function Menu (){
                                 <p>{recipe.price}</p>
                             </div>
                                 <p>{recipe.description}</p>
-                                <button className='orderbtn'>Order Now</button>
+                                <button className='orderbtn' onClick={() => handleOrder(recipe.id)}>Order Now</button>
                         </div>
                     </div>)
                 }
